@@ -1,0 +1,143 @@
+import { useState } from 'react'
+
+const collections = [
+  { name: 'Bouquets', from: 1500, icon: '💐' },
+  { name: 'Hat Boxes', from: 2000, icon: '🌹' },
+  { name: 'Plants', from: 800, icon: '🪴' },
+  { name: 'Gift Hampers', from: 2500, icon: '🎁' },
+]
+const occasions = [
+  ['Birthday', '🎂'], ['Anniversary', '💞'], ['Congratulations', '🎉'],
+  ['Thank You', '🌷'], ['Sympathy', '🕊️'], ['New Baby', '🧸'],
+]
+const bestSellers = [
+  { id: 1, name: 'Cream Rose Bouquet', price: 1800, icon: '💐' },
+  { id: 2, name: 'Garden Hat Box', price: 2200, icon: '🌸' },
+  { id: 3, name: 'Baby’s Breath Bundle', price: 1200, icon: '🤍' },
+  { id: 4, name: 'Hydrangea Gift Basket', price: 2800, icon: '🧺' },
+]
+const perks = [
+  ['🛵', 'Same day delivery', 'Within Naga City and nearby'],
+  ['🌿', 'Fresh flowers', 'Handpicked with care'],
+  ['✂️', 'Expert florists', 'Arranged by hand'],
+  ['💚', 'Happiness guaranteed', 'Your satisfaction, always'],
+]
+const peso = (n) => `₱${n.toLocaleString()}`
+
+export default function Home() {
+  const [cart, setCart] = useState(0)
+  const [email, setEmail] = useState('')
+  const [subscribed, setSubscribed] = useState(false)
+
+  return (
+    <>
+      <div className="topbar">Same day delivery available in Naga City, Cebu. Call 0936 348 7471 to order.</div>
+
+      <header className="nav">
+        <a href="#top" className="brand" aria-label="Dolores de Florist home">
+          <img src="/logo.jpg" alt="Dolores de Florist" />
+        </a>
+        <nav aria-label="Main">
+          <a href="#collections">Flowers</a>
+          <a href="#collections">Shop</a>
+          <a href="#occasions">Occasions</a>
+          <a href="#story">About us</a>
+          <a href="#contact">Contact</a>
+          <a href="#/order">Order online</a>
+          <a href="#/track">Track order</a>
+        </nav>
+        <div className="icons">
+          <button aria-label="Search">🔍</button>
+          <button aria-label="Account">👤</button>
+          <button aria-label={`Cart, ${cart} items`} className="cart">🛍️<span>{cart}</span></button>
+        </div>
+      </header>
+
+      <main id="top">
+        <section className="hero">
+          <div className="hero-copy">
+            <h1>Flowers for every occasion.</h1>
+            <p>Hand-tied bouquets and gifts from our shop in Naga City, Cebu, made to mark the big days and the small ones.</p>
+            <a className="btn" href="#/order">Order flowers</a>
+          </div>
+          <div className="hero-art"><img src="/logo.jpg" alt="Dolores de Florist, cream roses and hydrangea" /></div>
+        </section>
+
+        <ul className="perks">
+          {perks.map(([i, t, s]) => (
+            <li key={t}><span aria-hidden>{i}</span><div><strong>{t}</strong><small>{s}</small></div></li>
+          ))}
+        </ul>
+
+        <section id="collections" className="block">
+          <div className="head"><h2>Shop our collections</h2><a className="pill" href="#collections">View all</a></div>
+          <div className="grid4">
+            {collections.map((c) => (
+              <a key={c.name} href="#collections" className="card">
+                <div className="photo" aria-hidden>{c.icon}</div>
+                <div className="meta"><div><strong>{c.name}</strong><small>From {peso(c.from)}</small></div><span className="go">›</span></div>
+              </a>
+            ))}
+          </div>
+        </section>
+
+        <section id="story" className="story">
+          <div>
+            <h2>Flowers that tell beautiful stories</h2>
+            <p>We choose the freshest blooms and arrange each one by hand, so every bouquet carries a little of the person it is meant for.</p>
+            <a className="pill" href="#contact">Our story</a>
+          </div>
+          <div className="story-art" aria-hidden>🌿🌹🌿</div>
+        </section>
+
+        <section id="occasions" className="block">
+          <div className="head"><h2>Shop by occasion</h2></div>
+          <ul className="occ">
+            {occasions.map(([n, i]) => (
+              <li key={n}><a href="#bestsellers"><span aria-hidden>{i}</span>{n}</a></li>
+            ))}
+          </ul>
+        </section>
+
+        <section className="news">
+          <div><strong>10% off your first order</strong><small>Join our list and get a code by email.</small></div>
+          {subscribed ? (
+            <p role="status">Thanks! Check your inbox for your code.</p>
+          ) : (
+            <div className="sub">
+              <input type="email" placeholder="Enter your email address" value={email}
+                onChange={(e) => setEmail(e.target.value)} aria-label="Email address" />
+              <button className="btn gold" onClick={() => email.includes('@') && setSubscribed(true)}>Subscribe</button>
+            </div>
+          )}
+        </section>
+
+        <section id="bestsellers" className="block">
+          <div className="head"><h2>Best sellers</h2><a className="pill" href="#bestsellers">View all</a></div>
+          <div className="grid4">
+            {bestSellers.map((p) => (
+              <article key={p.id} className="card">
+                <div className="photo" aria-hidden>{p.icon}</div>
+                <div className="meta">
+                  <div><strong>{p.name}</strong><small>{peso(p.price)}</small></div>
+                  <button className="add" onClick={() => setCart((c) => c + 1)} aria-label={`Add ${p.name} to cart`}>+</button>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      </main>
+
+      <footer id="contact">
+        <img src="/logo.jpg" alt="" />
+        <div>
+          <strong>Dolores de Florist</strong>
+          <p>City of Naga, Cebu</p>
+          <p><a href="tel:+639363487471">0936 348 7471</a></p>
+          <p><a href="#/owner">Owner dashboard</a></p>
+        </div>
+        <small>© {new Date().getFullYear()} Dolores de Florist</small>
+      </footer>
+    </>
+  )
+}
