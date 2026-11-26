@@ -7,10 +7,10 @@ import moneyBouquet from '../assets/money-bouquet.jpg'
 import funeralSpray from '../assets/funeral-flowers.jpg'
 
 const collections = [
-  { name: 'Bouquets', from: 1500, icon: '💐' },
-  { name: 'Hat Boxes', from: 2000, icon: '🌹' },
-  { name: 'Plants', from: 800, icon: '🪴' },
-  { name: 'Gift Hampers', from: 2500, icon: '🎁' },
+  { name: 'Bouquets', from: 1500, img: roseBouquet },
+  { name: 'Gift Bundles', from: 2500, img: giftBundle },
+  { name: 'Money Bouquets', from: 2000, img: moneyBouquet },
+  { name: 'Sympathy', from: 2000, img: funeralSpray },
 ]
 const occasions = [
   ['Birthday', '🎂'], ['Anniversary', '💞'], ['Congratulations', '🎉'],
@@ -82,7 +82,7 @@ export default function Home() {
           <div className="grid4">
             {collections.map((c) => (
               <a key={c.name} href="#collections" className="card">
-                <div className="photo" aria-hidden>{c.icon}</div>
+                <div className="photo"><img src={c.img} alt={c.name} loading="lazy" /></div>
                 <div className="meta"><div><strong>{c.name}</strong><small>From {peso(c.from)}</small></div><span className="go">›</span></div>
               </a>
             ))}
