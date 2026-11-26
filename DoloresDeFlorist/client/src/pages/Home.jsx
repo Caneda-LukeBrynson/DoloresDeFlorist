@@ -1,6 +1,10 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth, homeFor } from '../auth'
+import roseBouquet from '../assets/red-rose-bouquet.jpg'
+import giftBundle from '../assets/gift-bundle.jpg'
+import moneyBouquet from '../assets/money-bouquet.jpg'
+import funeralSpray from '../assets/funeral-flowers.jpg'
 
 const collections = [
   { name: 'Bouquets', from: 1500, icon: '💐' },
@@ -13,10 +17,10 @@ const occasions = [
   ['Thank You', '🌷'], ['Sympathy', '🕊️'], ['New Baby', '🧸'],
 ]
 const bestSellers = [
-  { id: 1, name: 'Cream Rose Bouquet', price: 1800, icon: '💐' },
-  { id: 2, name: 'Garden Hat Box', price: 2200, icon: '🌸' },
-  { id: 3, name: 'Baby’s Breath Bundle', price: 1200, icon: '🤍' },
-  { id: 4, name: 'Hydrangea Gift Basket', price: 2800, icon: '🧺' },
+  { id: 1, name: 'Red Rose Bouquet', price: 2500, img: roseBouquet, alt: 'Red roses with baby’s breath in black and gold wrapping' },
+  { id: 2, name: 'Rose, Teddy and Chocolate Bundle', price: 3500, img: giftBundle, alt: 'Red rose bouquet with a large teddy bear and a chocolate box' },
+  { id: 3, name: 'Money Bouquet', price: 3000, img: moneyBouquet, alt: 'Bouquet of 1000 peso bills with dried baby’s breath in blue wrapping' },
+  { id: 4, name: 'Sympathy Standing Spray', price: 3000, img: funeralSpray, alt: 'White standing flower sprays with condolence ribbons' },
 ]
 const perks = [
   ['🛵', 'Same day delivery', 'Within Naga City and nearby'],
@@ -121,9 +125,9 @@ export default function Home() {
           <div className="grid4">
             {bestSellers.map((p) => (
               <article key={p.id} className="card">
-                <div className="photo" aria-hidden>{p.icon}</div>
+                <div className={`photo ${p.img ? 'has-img' : ''}`}>{p.img ? <img src={p.img} alt={p.alt} loading="lazy" /> : <span aria-hidden>{p.icon}</span>}</div>
                 <div className="meta">
-                  <div><strong>{p.name}</strong><small>{peso(p.price)}</small></div>
+                  <div><strong>{p.name}</strong><small>From {peso(p.price)}</small></div>
                   <button className="add" onClick={() => setCart((c) => c + 1)} aria-label={`Add ${p.name} to cart`}>+</button>
                 </div>
               </article>
