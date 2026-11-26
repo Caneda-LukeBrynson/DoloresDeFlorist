@@ -10,7 +10,7 @@ export default function InquiryDash() {
   const [creating, setCreating] = useState(false)
   const [made, setMade] = useState(null)
   const inq = inquiries.find((i) => i.id === sel)
-  const link = made ? `${location.origin}/#/track/${made.id}` : ''
+  const link = made ? `${location.origin}/track/${made.id}` : ''
   return (
     <>
       <h1>Inquiries</h1>

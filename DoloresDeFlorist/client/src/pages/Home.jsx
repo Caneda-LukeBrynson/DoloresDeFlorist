@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { useAuth, homeFor } from '../auth'
 
 const collections = [
   { name: 'Bouquets', from: 1500, icon: '💐' },
@@ -25,6 +27,7 @@ const perks = [
 const peso = (n) => `₱${n.toLocaleString()}`
 
 export default function Home() {
+  const { user } = useAuth()
   const [cart, setCart] = useState(0)
   const [email, setEmail] = useState('')
   const [subscribed, setSubscribed] = useState(false)
@@ -43,12 +46,13 @@ export default function Home() {
           <a href="#occasions">Occasions</a>
           <a href="#story">About us</a>
           <a href="#contact">Contact</a>
-          <a href="#/order">Order online</a>
-          <a href="#/track">Track order</a>
+          <Link to="/customer/new">Order online</Link>
+          <Link to="/track">Track order</Link>
+          {user ? <Link to={homeFor(user)}>My dashboard</Link> : <Link to="/login">Log in</Link>}
         </nav>
         <div className="icons">
           <button aria-label="Search">🔍</button>
-          <button aria-label="Account">👤</button>
+          <Link to={user ? homeFor(user) : '/login'} aria-label="Account" className="acct">👤</Link>
           <button aria-label={`Cart, ${cart} items`} className="cart">🛍️<span>{cart}</span></button>
         </div>
       </header>
@@ -58,7 +62,7 @@ export default function Home() {
           <div className="hero-copy">
             <h1>Flowers for every occasion.</h1>
             <p>Hand-tied bouquets and gifts from our shop in Naga City, Cebu, made to mark the big days and the small ones.</p>
-            <a className="btn" href="#/order">Order flowers</a>
+            <Link className="btn" to="/customer/new">Order flowers</Link>
           </div>
           <div className="hero-art"><img src="/logo.jpg" alt="Dolores de Florist, cream roses and hydrangea" /></div>
         </section>
@@ -134,7 +138,7 @@ export default function Home() {
           <strong>Dolores de Florist</strong>
           <p>City of Naga, Cebu</p>
           <p><a href="tel:+639363487471">0936 348 7471</a></p>
-          <p><a href="#/owner">Owner dashboard</a></p>
+          <p><Link to="/login">Log in</Link></p>
         </div>
         <small>© {new Date().getFullYear()} Dolores de Florist</small>
       </footer>
