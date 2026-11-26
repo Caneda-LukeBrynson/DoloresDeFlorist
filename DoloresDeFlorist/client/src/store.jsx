@@ -1,6 +1,5 @@
 import { createContext, useContext, useState } from 'react'
 
-// Demo values. Change these to match the shop.
 export const MAX_PER_DAY = 3
 export const STATUSES = ['Awaiting approval', 'Preparing', 'Out for delivery', 'Delivered', 'Completed', 'Cancelled', 'Declined']
 export const ARRANGEMENTS = [
@@ -39,7 +38,7 @@ export const useStore = () => useContext(Ctx)
 
 export function StoreProvider({ children }) {
   const [inq, setInq] = useState(inquiries)
-  const [orders, setOrders] = useState(orders0)
+  const [orders, setOrders] = useState(orders0.map((x) => (['DDF-1003', 'DDF-1006'].includes(x.id) ? { ...x, email: 'customer@demo.test', customer: 'Liza Go' } : x)))
   const [stock, setStock] = useState(stock0)
   const [notifs, setNotifs] = useState([])
   const note = (text) => setNotifs((n) => [{ id: Math.random(), text }, ...n])

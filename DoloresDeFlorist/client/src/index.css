@@ -125,3 +125,6 @@ tr.low { background: #fbe3c8; }
 .stats strong { font: 700 1.8rem var(--serif); color: var(--forest); }
 button.day { border: 0; text-align: left; font: inherit; color: inherit; cursor: pointer; }
 button.day.on { outline: 2px solid var(--gold); }
+.acct { font-size: 1.3rem; padding: 8px; }
+.side .who { text-align: center; opacity: .8; margin-bottom: 8px; }
+.side .pill { color: var(--cream); border-color: var(--cream); margin-top: auto; }
